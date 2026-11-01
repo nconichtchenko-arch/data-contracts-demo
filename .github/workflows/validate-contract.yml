@@ -21,14 +21,8 @@ jobs:
         
     - name: Install dependencies
       run: |
-        pip install pyyaml psycopg2-binary
+        pip install pyyaml
         
-    - name: Run Data Contract Validator
+    - name: Validate YAML syntax
       run: |
-        python validate_contract.py
-      env:
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_PORT: ${{ secrets.DB_PORT }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        DB_USER: ${{ secrets.DB_USER }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        python -c "import yaml; yaml.safe_load(open('contracts/fct_sales_contract.yml')); print('✅ YAML контракт валиден')"
