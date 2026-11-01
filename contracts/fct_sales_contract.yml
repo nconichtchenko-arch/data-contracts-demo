@@ -1,0 +1,82 @@
+# Data Contract для таблицы fct_sales
+# Версия: 1.0
+# Владелец: Pavel Onishchenko
+
+dataset:
+  name: fct_sales
+  description: "Витрина агрегированных продаж по чекам и товарам (e-commerce)"
+  owner: "Pavel Onishchenko"
+  contact: "pavloni@mail.ru"
+  schema: "dbt_schema"
+  refresh_frequency: "daily"
+  source_system: "dbt (PostgreSQL)"
+
+columns:
+  - name: invoice_no
+    type: varchar(50)
+    description: "Номер счета (уникальный идентификатор заказа)"
+    required: true
+    unique: false
+    nullable: false
+
+  - name: stock_code
+    type: varchar(50)
+    description: "Код товара"
+    required: true
+    unique: false
+    nullable: false
+
+  - name: customer_id
+    type: integer
+    description: "ID клиента"
+    required: true
+    unique: false
+    nullable: true
+
+  - name: order_date
+    type: date
+    description: "Дата продажи (формат YYYY-MM-DD)"
+    required: true
+    unique: false
+    nullable: false
+
+  - name: total_quantity
+    type: bigint
+    description: "Общее количество товаров в чеке"
+    required: true
+    unique: false
+    nullable: false
+    constraints:
+      - type: min
+        value: 1
+
+  - name: total_revenue
+    type: numeric
+    description: "Общая выручка по чеку (в рублях)"
+    required: true
+    unique: false
+    nullable: false
+    constraints:
+      - type: min
+        value: 0
+      - type: max
+        value: 100000
+
+quality_rules:
+  - name: "total_revenue_positive"
+    description: "total_revenue не должен быть отрицательным"
+    column: total_revenue
+    rule: "value >= 0"
+    severity: "critical"
+
+  - name: "order_date_format"
+    description: "order_date должен быть в формате YYYY-MM-DD"
+    column: order_date
+    rule: "matches '^\\d{4}-\\d{2}-\\d{2}$'"
+    severity: "warning"
+
+  - name: "invoice_no_not_null"
+    description: "invoice_no не должен быть NULL"
+    column: invoice_no
+    rule: "value IS NOT NULL"
+    severity: "critical"
