@@ -81,7 +81,8 @@ def validate_rules(conn, contract):
             match = re.search(r"matches\s+'([^']+)'", sql_condition)
             if match:
                 pattern = match.group(1)
-                sql_condition = f"{column} ~ '{pattern}'"
+                # Приводим колонку к тексту, так как regex работает только со строками
+                sql_condition = f"CAST({column} AS TEXT) ~ '{pattern}'"
         
         query = f"SELECT COUNT(*) FROM {schema}.{table} WHERE NOT ({sql_condition});"
         
