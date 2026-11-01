@@ -28,32 +28,34 @@
 
 1. Установите зависимости:
 
-```bash
-pip install pyyaml psycopg2-binary
-Настройте подключение к БД в validate_contract.py (или через переменные окружения).
+    pip install pyyaml psycopg2-binary
 
-Запустите валидатор:
+2. Настройте подключение к БД в `validate_contract.py` (или через переменные окружения).
 
-bash
-python validate_contract.py
-Результат работы
-text
-🚀 Запуск валидатора Data Contract...
-📄 Контракт загружен: fct_sales (владелец: Pavel Onishchenko)
+3. Запустите валидатор:
 
-🔍 Проверка колонок для dbt_schema.fct_sales...
-  ✅ Колонка 'invoice_no' найдена.
-  ✅ Колонка 'stock_code' найдена.
-  ✅ Колонка 'customer_id' найдена.
-  ✅ Колонка 'order_date' найдена.
-  ✅ Колонка 'total_quantity' найдена.
-  ✅ Колонка 'total_revenue' найдена.
+    python validate_contract.py
 
-🔍 Проверка правил качества...
-  ✅ total_revenue_positive: нарушений нет.
-  ✅ order_date_format: нарушений нет.
-  ✅ invoice_no_not_null: нарушений нет.
+## Результат работы
 
-🎉 ВСЕ ПРОВЕРКИ ПРОЙДЕНЫ! Данные соответствуют контракту.
-Ссылки
-Основной проект DWH Marketplace Analytics
+    🚀 Запуск валидатора Data Contract...
+    📄 Контракт загружен: fct_sales (владелец: Pavel Onishchenko)
+
+    🔍 Проверка колонок для dbt_schema.fct_sales...
+      ✅ Колонка 'invoice_no' найдена.
+      ✅ Колонка 'stock_code' найдена.
+      ✅ Колонка 'customer_id' найдена.
+      ✅ Колонка 'order_date' найдена.
+      ✅ Колонка 'total_quantity' найдена.
+      ✅ Колонка 'total_revenue' найдена.
+
+    🔍 Проверка правил качества...
+      ✅ total_revenue_positive: нарушений нет.
+      ✅ order_date_format: нарушений нет.
+      ✅ invoice_no_not_null: нарушений нет.
+
+    🎉 ВСЕ ПРОВЕРКИ ПРОЙДЕНЫ! Данные соответствуют контракту.
+
+## Ссылки
+
+- [Основной проект DWH Marketplace Analytics](https://github.com/nconichtchenko-arch/marketplace-dwh-analytics)
