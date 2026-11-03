@@ -15,20 +15,22 @@
 ## Что реализовано
 
 - **YAML-контракт** для таблицы `fct_sales` (`contracts/fct_sales_contract.yml`): описание колонок, типов, ограничений и правил качества.
-- **Python-валидатор** (`validate_contract.py`): читает контракт, подключается к PostgreSQL и проверяет данные на соответствие.
+- **Python-валидатор** (`validate_contract.py`): читает контракт, подключается к PostgreSQL и проверяет данные на соответствие. Результаты сохраняются в `validation_results.json`.
+- **Streamlit-дашборд** (`dashboard.py`): визуализирует статус контракта (пройден/не пройден), список проверенных колонок и правила качества.
 - **CI/CD (GitHub Actions)** (`.github/workflows/validate-contract.yml`): автоматически проверяет YAML-контракт при каждом пуше.
 
 ## Стек
 
 - Python (PyYAML, psycopg2)
 - PostgreSQL
+- Streamlit
 - GitHub Actions
 
 ## Как запустить
 
 1. Установите зависимости:
 
-    pip install pyyaml psycopg2-binary
+    pip install pyyaml psycopg2-binary streamlit
 
 2. Настройте подключение к БД в `validate_contract.py` (или через переменные окружения).
 
@@ -36,7 +38,13 @@
 
     python validate_contract.py
 
+4. Запустите дашборд:
+
+    streamlit run dashboard.py
+
 ## Результат работы
+
+**Валидатор (консоль):**
 
     🚀 Запуск валидатора Data Contract...
     📄 Контракт загружен: fct_sales (владелец: Pavel Onishchenko)
@@ -56,6 +64,12 @@
 
     🎉 ВСЕ ПРОВЕРКИ ПРОЙДЕНЫ! Данные соответствуют контракту.
 
+**Дашборд (Streamlit):**
+
+![Data Contracts Dashboard](dashboard.png)
+
 ## Ссылки
 
 - [Основной проект DWH Marketplace Analytics](https://github.com/nconichtchenko-arch/marketplace-dwh-analytics)
+- [dbt CI/CD Demo](https://github.com/nconichtchenko-arch/dbt-ci-cd-demo)
+- [dbt + Great Expectations Demo](https://github.com/nconichtchenko-arch/dbt-great-expectations-demo)
